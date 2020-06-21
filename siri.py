@@ -1,6 +1,6 @@
 import pygame
 import sys
-from resources.waveform import Wave
+from elements.waveform import Wave
 
 pygame.init()
 window_name = '.'.join(sys.argv[0].split('.')[:-1])
