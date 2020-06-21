@@ -1,6 +1,6 @@
 import pygame
 import sys
-from waveform import Wave
+from resources.waveform import Wave
 
 pygame.init()
 window_name = '.'.join(sys.argv[0].split('.')[:-1])
@@ -9,6 +9,7 @@ SCREEN = pygame.display.set_mode((375, 667))
 done = False
 clock = pygame.time.Clock()
 FRAME_RATE = 120
+
 waves = []
 waves.append(Wave(50, (255, 0, 0), 375))
 waves.append(Wave(50, (0, 255, 0), 375))
