@@ -36,7 +36,7 @@ class Wave():
 
 	def update(self, damp):
 		self.points *= damp
-		self.points[self.points < 0.02] = 0.
+		# self.points[self.points < 0.02] = 0.
 
 	def induce(self, factor):
 		randx = self.width / 8 + 3 * random.random() * self.width / 4
