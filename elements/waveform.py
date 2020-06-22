@@ -20,7 +20,7 @@ class Wave():
 		gfxdraw.pixel(screen, x, int(y) + 1, color + (int(255*(np.ceil(y) - y)),))
 		pass
 
-	def show(self, screen : pygame.Surface, locY):
+	def show(self, screen : pygame.Surface):
 		poly = pygame.Surface((self.width, self.amplitude))
 		points = self.amplitude * self.points + np.ones_like(self.points)
 		points *= self.get_gaussian(self.width / 2., 1, 4 / self.width)(np.arange(self.width))
@@ -31,8 +31,8 @@ class Wave():
 			if y >= 1:
 				gfxdraw.vline(poly, x, 0, int(y) - 1, self.color)
 
-		screen.blit(pygame.transform.flip(poly, False, True), (0, locY), special_flags=pygame.BLEND_ADD)
-		screen.blit(poly, (0, locY + self.amplitude), special_flags=pygame.BLEND_ADD)
+		screen.blit(pygame.transform.flip(poly, False, True), (0, 0), special_flags=pygame.BLEND_ADD)
+		screen.blit(poly, (0, self.amplitude), special_flags=pygame.BLEND_ADD)
 
 	def update(self, damp):
 		self.points *= damp
