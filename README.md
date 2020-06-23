@@ -15,6 +15,3 @@ Run `siri.py`. Only animations are implemented.
   - [ ] Parallelize
 - Chatbot
 - Text to speech
-
-## Credits
-- Icon from [flaticon](https://www.flaticon.com/authors/those-icons)

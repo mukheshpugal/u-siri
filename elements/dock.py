@@ -1,4 +1,6 @@
 import pygame
+import pyaudio
+import numpy as np
 from .waveform import Wave
 from webbrowser import open as wOpen
 
@@ -14,6 +16,7 @@ class Dock():
 		self.mode = 'listening'
 		self.dimensions = dimensions
 		width, height = dimensions
+		self.mic = pyaudio.PyAudio().open(format=pyaudio.paFloat32, channels=1, rate=44100, input=True, frames_per_buffer=1024)
 
 		self.waves = []
 		self.waves.append(Wave(height / 2, (255, 0, 0), width))
@@ -32,13 +35,23 @@ class Dock():
 							pass
 						if x > 325 and x < 355:
 							pass
+		if self.mode == 'listening':
+			for event in events:
+				if event.type == pygame.KEYDOWN:
+					if event.key == pygame.K_SPACE:
+						for wave in self.waves:
+							wave.induce(0.5)
+
 		if self.mode == 'typing':
 			pass
 
 	def update(self):
 		if self.mode == 'listening':
+			samples = self.mic.read(1024, exception_on_overflow=False)
+			samples = np.frombuffer(samples, dtype=np.float32)[::2]
+			volume = np.sum(samples**2)/len(samples)
 			for wave in self.waves:
-				# wave.induce
+				wave.induce(2*volume)
 				wave.update(0.834)
 
 	def show(self):
