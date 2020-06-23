@@ -50,6 +50,7 @@ class Dock():
 			samples = self.mic.read(1024, exception_on_overflow=False)
 			samples = np.frombuffer(samples, dtype=np.float32)[::2]
 			volume = np.sum(samples**2)/len(samples)
+			volume = volume**0.5/2
 			for wave in self.waves:
 				wave.induce(2*volume)
 				wave.update(0.834)
