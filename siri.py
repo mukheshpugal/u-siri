@@ -17,17 +17,19 @@ done = False
 clock = pygame.time.Clock()
 FRAME_RATE = 120
 dock = Dock((375, 100))
-cw = ChatWindow((100, 200), (100, 100))
-tb = Textbox(375)
-tb.setstr1("Hello")
+cw = ChatWindow((20, 20), (335, 570))
+tb = Textbox(335, 20)
+tb.setstr1("HHH")
 tb.setstr2("Hi there! What can I do for you? brrrrr")
 
 while not done:
 	SCREEN.fill((0, 0, 0))
 	dock.update()
 	SCREEN.blit(dock.getSurface(), (0, 580))
-	SCREEN.blit(tb.getSurface(), (0, 20))
-	pygame.draw.rect(SCREEN, (0, 255, 0), (100, 100, 100, 200))
+	# SCREEN.blit(tb.getSurface(), (20, 20))
+	SCREEN.blit(cw.getSurface(), (20, 20))
+	# SCREEN.blit(tb.getSurface(), (20, 300))
+	# pygame.draw.rect(SCREEN, (0, 255, 0), (20, 20, 335, 570))
 	events = pygame.event.get()
 	dock.eventHandler(events)
 	cw.eventHandler(events)
@@ -43,5 +45,9 @@ while not done:
 				dock.stopLoading()
 			if event.key == pygame.K_t:
 				dock.stopTyping()
+			if event.key == pygame.K_s:
+				cw.addScreen(tb.getSurface().copy())
+			if event.key == pygame.K_a:
+				cw.removeScreen()
 	pygame.display.flip()
 	clock.tick(FRAME_RATE)

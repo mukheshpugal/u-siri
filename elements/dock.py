@@ -38,7 +38,6 @@ class Dock():
 							wOpen('https://github.com/mukheshpugal/u-siri')
 						if x > 168 and x < 198:
 							# Mic
-							# pass
 							self.mode = 'toListen'
 							return 'listen'
 						if x > 325 and x < 355:
@@ -57,7 +56,9 @@ class Dock():
 
 	def stopLoading(self):
 		if self.mode == 'loading':
-			self.mode = 'stopLoading'
+			self.mode = 'idle'
+			self.loaderDirection = True
+			self.loaderLocation = 0.5
 
 	def stopTyping(self):
 		if self.mode == 'typing':
@@ -84,11 +85,6 @@ class Dock():
 				self.loaderLocation = 0.
 
 			self.loadWave.load(2 * np.abs(velocity) + 0.01, self.loaderLocation, self.loaderDirection)
-
-			if self.mode == 'stopLoading' and np.abs(velocity) > 0.02:
-				self.mode = 'idle'
-				self.loaderLocation = 0.5
-				self.loaderDirection = True
 
 		if self.mode == 'toListen':
 			self.loaderLocation += 0.05

@@ -50,11 +50,11 @@ class Textbox():
 
 	def setstr1(self, str1:str):
 		self.string1 = str1
-		self.screens1 = [fontMedium.render(line, True, (255, 255, 255)) for line in self.textwrap(str1, fontMedium, self.width - 3 * self.margin, self.width - 2 * self.margin)]
+		self.screens1 = [fontMedium.render(line, True, (255, 255, 255)) for line in self.textwrap(str1, fontMedium, self.width - self.margin, self.width)]
 
 	def setstr2(self, str2:str):
 		self.string2 = str2
-		self.screens2 = [fontThin.render(line, True, (255, 255, 255)) for line in self.textwrap(str2, fontThin, self.width - 4 * self.margin, self.width - 2 * self.margin)]
+		self.screens2 = [fontThin.render(line, True, (255, 255, 255)) for line in self.textwrap(str2, fontThin, self.width - self.margin, self.width)]
 
 	def getSurface(self):
 		SCREEN = pygame.Surface((self.width, fontMedium.get_linesize()))
