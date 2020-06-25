@@ -4,3 +4,4 @@ PyAudio >= 0.2.11
 SpeechRecognition >= 3.8.1
 numpy >= 1.18.3
 pygame >= 1.9.6
+pywin32 >= 227

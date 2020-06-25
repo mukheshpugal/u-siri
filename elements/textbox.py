@@ -9,6 +9,15 @@ class Textbox():
 	def __init__(self, width, margin=20):
 		self.margin = margin
 		self.width = width
+		self.screens1 = []
+		self.screens2 = []
+
+	@staticmethod
+	def appendSurfaces(surface1, surface2, fontHeight):
+		SURFACE = pygame.Surface((surface1.get_width(), surface1.get_height() + fontHeight))
+		SURFACE.blit(surface1, (0, 0))
+		SURFACE.blit(surface2, (0, surface1.get_height()))
+		return SURFACE
 
 	@staticmethod
 	def textwrap(string:str, font:pygame.font.Font, limit, margin):
@@ -47,10 +56,11 @@ class Textbox():
 		self.string2 = str2
 		self.screens2 = [fontThin.render(line, True, (255, 255, 255)) for line in self.textwrap(str2, fontThin, self.width - 4 * self.margin, self.width - 2 * self.margin)]
 
-	def show(self, screen:pygame.Surface, locY):
-		for scr in self.screens1:
-			screen.blit(scr, (self.margin, locY))
-			locY += fontMedium.get_linesize()
+	def getSurface(self):
+		SCREEN = pygame.Surface((self.width, fontMedium.get_linesize()))
+		SCREEN.blit(self.screens1[0], (0, 0))
+		for scr in self.screens1[1:]:
+			SCREEN = self.appendSurfaces(SCREEN, scr, fontMedium.get_linesize())
 		for scr in self.screens2:
-			screen.blit(scr, (self.margin, locY))
-			locY += fontThin.get_linesize()
+			SCREEN = self.appendSurfaces(SCREEN, scr, fontThin.get_linesize())
+		return SCREEN
