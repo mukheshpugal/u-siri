@@ -28,6 +28,7 @@ class Dock():
 		self.loaderDirection = True # Right if true
 
 	def eventHandler(self, events:pygame.event.EventType):
+		self.update()
 		if self.mode == 'idle':
 			for event in events:
 				if event.type == pygame.MOUSEBUTTONDOWN:
@@ -69,10 +70,10 @@ class Dock():
 			samples = self.mic.read(1024, exception_on_overflow=False)
 			samples = np.frombuffer(samples, dtype=np.float32)[::2]
 			volume = np.sum(samples**2)/len(samples)
-			volume = 0. if volume < 0.005 else volume**0.2/5
+			volume = 0. if volume < 0.005 else volume**0.2/4
 			for wave in self.waves:
 				wave.induce(volume)
-				wave.update(0.85)
+				wave.update(0.80)
 		if self.mode in ('loading', 'stopLoading'):
 			velocity = 0.02 * (np.sin(self.loaderLocation * np.pi) + 0.1) * (1 if self.loaderDirection else -1)
 			self.loaderLocation += velocity

@@ -64,3 +64,9 @@ class Textbox():
 		for scr in self.screens2:
 			SCREEN = self.appendSurfaces(SCREEN, scr, fontThin.get_linesize())
 		return SCREEN
+
+	def copy(self):
+		out = Textbox(self.width)
+		out.screens1 = self.screens1.copy()
+		out.screens2 = self.screens2.copy()
+		return out
