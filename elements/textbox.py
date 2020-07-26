@@ -13,10 +13,13 @@ class Textbox():
 		self.screens2 = []
 
 	@staticmethod
-	def appendSurfaces(surface1, surface2, fontHeight):
-		SURFACE = pygame.Surface((surface1.get_width(), surface1.get_height() + fontHeight))
+	def appendSurfaces(surface1, surface2=None, height=0):
+		if surface2 is None:
+			SURFACE = pygame.Surface((surface1.get_width(), height))
+		else:
+			SURFACE = pygame.Surface((surface1.get_width(), surface1.get_height() + height))
+			SURFACE.blit(surface2, (0, surface1.get_height()))
 		SURFACE.blit(surface1, (0, 0))
-		SURFACE.blit(surface2, (0, surface1.get_height()))
 		return SURFACE
 
 	@staticmethod
@@ -52,20 +55,20 @@ class Textbox():
 		return out
 
 	def setstr1(self, str1:str):
-		self.string1 = str1
-		self.screens1 = [fontMedium.render(line, True, (255, 255, 255)) for line in self.textwrap(str1, fontMedium, self.width - self.margin, self.width)]
+		string1 = str1[0].upper() + str1[1:]
+		self.screens1 = [fontMedium.render(line, True, (255, 255, 255)) for line in self.textwrap(string1, fontMedium, self.width - self.margin, self.width)]
 
 	def setstr2(self, str2:str):
-		self.string2 = str2
-		self.screens2 = [fontThin.render(line, True, (255, 255, 255)) for line in self.textwrap(str2, fontThin, self.width - self.margin, self.width)]
+		string2 = str2[0].upper() + str2[1:]
+		self.screens2 = [fontThin.render(line, True, (255, 255, 255)) for line in self.textwrap(string2, fontThin, self.width - self.margin, self.width)]
 
 	def getSurface(self):
-		SCREEN = pygame.Surface((self.width, fontMedium.get_linesize()))
-		SCREEN.blit(self.screens1[0], (0, 0))
-		for scr in self.screens1[1:]:
+		SCREEN = pygame.Surface((self.width, 10))
+		for scr in self.screens1:
 			SCREEN = self.appendSurfaces(SCREEN, scr, fontMedium.get_linesize())
 		for scr in self.screens2:
 			SCREEN = self.appendSurfaces(SCREEN, scr, fontThin.get_linesize())
+		self.appendSurfaces(SCREEN, height=10)
 		return SCREEN
 
 	def copy(self):
