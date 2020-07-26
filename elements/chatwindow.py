@@ -27,7 +27,9 @@ class ChatWindow():
 					y -= self.position[1]
 					if x > 0 and x < self.width:
 						if y > 0 and y < self.height:
-							self.scrollPosition -= 20 * event.y
+							scroll = event.y
+							scroll = scroll**1.7 if scroll > 0 else -(-scroll)**1.7
+							self.scrollPosition -= 5 * scroll
 							self.scrollPosition = self.scrollPosition if self.scrollPosition < self.scrollLimit else self.scrollLimit
 							self.scrollPosition = self.scrollPosition if self.scrollPosition > 0 else 0
 		if self.mode == 'newPanel':

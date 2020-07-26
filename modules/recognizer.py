@@ -6,7 +6,7 @@ class Recognizer():
 		self.r = sr.Recognizer()
 		self.m = sr.Microphone()
 
-		# with self.m as source: self.r.adjust_for_ambient_noise(source)
+		with self.m as source: self.r.adjust_for_ambient_noise(source)
 
 	def record(self):
 		with self.m as source: self.audio = self.r.listen(source)

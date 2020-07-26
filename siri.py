@@ -10,6 +10,8 @@ from modules.modelchatbot import ChatBot
 
 pygame.init()
 SCREEN = pygame.display.set_mode((375, 667))
+pygame.display.set_caption('u/siri')
+
 done = False
 clock = pygame.time.Clock()
 FRAME_RATE = 120
@@ -19,7 +21,6 @@ chatwindow = ChatWindow((20, 20), (335, 580))
 recognizer = Recognizer()
 chatbot = ChatBot()
 
-
 def chatThread():
 	global recognizer, dock, chatwindow, chatbot, thread
 
@@ -27,7 +28,7 @@ def chatThread():
 	dock.stopListening()
 	text, stopLoading = recognizer.decode()
 
-	tb = Textbox(335, 20)
+	tb = Textbox(325, 20)
 	tb.setstr1(text)
 	chatwindow.addScreen(tb.getSurface())
 	chatwindow.setRemoveKey()

@@ -6,7 +6,7 @@ fontThin = pygame.font.Font('resources/fonts/thin.ttf', 24)
 
 class Textbox():
 
-	def __init__(self, width, margin=20):
+	def __init__(self, width, margin=30):
 		self.margin = margin
 		self.width = width
 		self.screens1 = []
@@ -37,9 +37,12 @@ class Textbox():
 					i -= 1
 				else:
 					for j in range(len(word)):
-						if before + font.size(word[:j])[0] > margin:
+						if before + font.size(word[:j+1] + '-')[0] > margin:
+							if j < 3:
+								i -= 1
+								break
 							newline += word[:j-1] + '-'
-							words.insert(i + 1, word[j-1:])
+							words.insert(i + 1, '-'+word[j-1:])
 							break
 				out.append(newline)
 				before = 0

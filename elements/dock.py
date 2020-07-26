@@ -7,6 +7,7 @@ from webbrowser import open as wOpen
 pygame.font.init()
 typing = pygame.font.Font('resources/fonts/thin.ttf', 28).render('typing...', True, (255, 255, 255))
 imageMic = pygame.transform.smoothscale(pygame.image.load('resources/images/mic.png'), (30, 30))
+pygame.display.set_icon(imageMic)
 imageKBoard = pygame.transform.smoothscale(pygame.image.load('resources/images/keyboard.png'), (30, 30))
 imageHelp = pygame.transform.smoothscale(pygame.image.load('resources/images/help.png'), (24, 24))
 
